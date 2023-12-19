@@ -1,0 +1,738 @@
+@import "variables-base-looknfeel.scss";
+@import "variables-derivadas.scss";
+@import "variables-derivadas-looknfeel.scss";
+
+%headings {
+  letter-spacing: 1.5px;
+}
+.input-between .inputs:first-child {
+  & .input,
+  & .input-group .b-form-btn-label-control.form-control {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+}
+.input-between .inputs:last-child {
+  & .input,
+  & .input-group .b-form-btn-label-control.form-control {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+}
+
+.input-between .inputs:not(:last-child, :first-child) .input,
+.input-between
+  .inputs:not(:last-child, :first-child)
+  .input-group
+  .b-form-btn-label-control.form-control {
+  border-radius: 0px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %headings;
+}
+
+%heading2 {
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: unquote("clamp(1.5rem, 0.5rem + 1.25vw, 2rem)");
+}
+
+h2,
+.h2 {
+  @extend %heading2;
+}
+
+%heading3 {
+  color: var(--belat-primary) !important;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: unquote("clamp(1.25rem, 0.25rem + 1.25vw, 1.75rem)") !important;
+}
+
+h3,
+.h3 {
+  @extend %heading3;
+}
+
+/* layout */
+
+%base_content {
+  background-color: var(--belat-bg-color);
+}
+.base-content {
+  @extend %base_content;
+}
+
+%tabs_card_header {
+  max-width: 90vw;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  background: var(--belat-bg-color);
+  border: none;
+}
+
+.tabs > .card-header {
+  @extend %tabs_card_header;
+}
+
+#container > .row > .col > .card {
+  border: none;
+}
+
+%card_bg_navbar {
+  background-color: var(--belat-bg-color);
+}
+
+.card,
+.bg-navbar {
+  @extend %card_bg_navbar;
+}
+
+.register-container {
+  padding: 0 16px;
+}
+
+.bg-success {
+  background: #00816d;
+}
+.bg-secondary {
+  background: #00816d !important;
+}
+/* home only layaout */
+//no requiere placeholders, porque el home no es visible en visor de terceros
+
+.home-grid {
+  min-height: 100vmin;
+  margin-inline: -15px; //fix margin de row/col padre
+  margin-bottom: -1.5rem; // mismo fix
+  display: grid;
+  grid-template-areas: "form-tabs side-content";
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-tabs-item {
+  grid-area: form-tabs;
+  padding: clamp(1rem, 4vw, 3rem);
+  margin-top: clamp(2rem, 2vw, 2rem);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-content-item {
+  grid-area: side-content;
+  padding-inline: clamp(1rem, 3vw, 3rem);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  background-color: var(--belat-primary);
+}
+
+.home-grid .form-tabs-item > div {
+  max-width: 25rem;
+}
+
+.home-grid .side-content-item > div {
+  max-width: clamp(20rem, 50vw, 35rem);
+}
+
+.home-title {
+  text-transform: inherit;
+  letter-spacing: 0px;
+  font-weight: 500;
+  font-size: clamp(1.125rem, 4vw, 3.5rem);
+  margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
+  color: #032a5a;
+}
+
+.home-subtitle {
+  font-size: clamp(1rem, 1.9vw, 1.5rem);
+  line-height: 1;
+  color: #032a5a;
+}
+
+.home-title .primary {
+  color: #14aa95;
+}
+
+.home-title .secondary {
+  color: #df6d8d;
+}
+
+/* components */
+
+/* buttons */
+
+%btn_global {
+  font-weight: 600;
+  padding: 0.75em 1.5em;
+  letter-spacing: 0.5px;
+  font-size: unquote("clamp(0.75rem, -0.25rem + 1.25vw, 1.25rem)");
+  // text-transform: uppercase;
+}
+
+.btn {
+  font-size: unquote("clamp(0.75rem, 0.25rem + 0.625vw, 1rem)");
+  font-family: Raleway;
+}
+
+.btn-secondary,
+.btn-primary {
+  @extend %btn_global;
+}
+.btn-sm {
+  @extend %btn_global;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.navbar-nav .btn-secondary {
+  @extend %btn_global;
+  padding: 0.5rem 1rem !important; //fallback
+  padding: calc(clamp(0.5rem, 0.625vw, 0.75rem) + 0.5px)
+    clamp(1rem, 1.25vw, 1.5rem) !important;
+  font-size: 0.5rem !important; //fallback
+  font-size: clamp(0.5rem, 0.625vw, 0.75rem) !important; // 1280 a 1920
+}
+
+.nav-home {
+  display: none;
+}
+
+.nav-item.nav-home > a,
+.nav-item.nav-user-data > a {
+  @extend %btn_global;
+  display: flex;
+  gap: 0.8em;
+  padding: 0.5rem 1rem !important; //fallback
+  padding: clamp(0.5rem, 0.625vw, 0.75rem) clamp(1rem, 1.25vw, 1.5rem) !important; // 1280 a 1920
+  font-size: 0.5rem; //fallback
+  font-size: clamp(0.5rem, 0.625vw, 0.75rem); // 1280 a 1920
+  border: 1px solid var(--belat-primary);
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  align-items: center;
+}
+
+.nav-item.nav-home > a > span,
+.nav-item.nav-user-data > a > span {
+  display: grid; //fix para que los iconos del los links del nav se alineen correctamente en el centro sin mod el line height
+}
+
+.nav-item.nav-home > a:hover,
+.nav-item.nav-user-data > a:hover {
+  color: var(--belat-theme-color) !important;
+  background: var(--belat-secondary) !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border-color: var(--belat-secondary);
+}
+
+.nav-item.nav-home > a svg,
+.nav-item.nav-user-data > a svg {
+  height: 13px;
+  color: var(--belat-text-color) !important;
+}
+
+.nav-item.nav-home > a:hover svg,
+.nav-item.nav-user-data > a:hover svg {
+  color: var(--belat-theme-color) !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* tabs */
+%nav_tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.25rem auto;
+  padding: 0 0.25rem;
+  border: none;
+  gap: 1rem;
+  background: var(--belat-bg-color);
+  flex-wrap: wrap;
+}
+
+.nav-tabs {
+  @extend %nav_tabs;
+}
+
+%alt_nav_tabs {
+  height: 100%;
+  background: none;
+  max-width: 100%;
+  padding: 0;
+  gap: 0;
+  justify-content: center;
+  border-radius: 0;
+  border-bottom: none;
+  margin-bottom: 1.5rem;
+}
+
+.alt-nav-tabs .nav-tabs {
+  @extend %alt_nav_tabs;
+}
+
+%nav_item {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-tabs .nav-item {
+  @extend %nav_item;
+}
+
+%nav_link {
+  font-size: 1rem;
+  font-size: clamp(0.75rem, 0.975vw, 1.125rem);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 3.5em;
+  margin: 0;
+  color: var(--belat-text-color);
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5em;
+  border: none;
+  border-radius: 2.75em;
+  background: #e1e5eb;
+  text-decoration: initial;
+  cursor: pointer;
+}
+
+.nav-tabs .nav-link {
+  @extend %nav_link;
+}
+
+%alt_nav_link {
+  margin: 0 0 0 0;
+  background-color: inherit;
+  color: #afbbcb;
+  font-size: 1.125rem;
+  padding: 0 clamp(1rem, 2.5vw, 2rem); //32px
+  border-radius: 0;
+  border-bottom: 2px solid #afbbcb;
+}
+
+.alt-nav-tabs .nav-tabs .nav-link {
+  @extend %alt_nav_link;
+}
+
+%nav_link_hover {
+  background-color: #9dacbf;
+}
+
+.nav-tabs .nav-link:hover {
+  @extend %nav_link_hover;
+}
+
+%alt_nav_link_hover {
+  background-color: inherit;
+  color: var(--belat-primary-75);
+  border-bottom: 2px solid var(--belat-primary-75);
+}
+
+.alt-nav-tabs .nav-tabs .nav-link:hover {
+  @extend %alt_nav_link_hover;
+}
+
+%nav_link_active {
+  background-color: var(--belat-primary);
+  color: var(--belat-theme-color);
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  @extend %nav_link_active;
+}
+
+%nav_link_active_hover {
+  background-color: var(--belat-primary);
+  color: var(--belat-theme-color);
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active:hover {
+  @extend %nav_link_active_hover;
+}
+
+%alt_nav_link_active {
+  color: var(--belat-primary);
+  background-color: inherit;
+  border-bottom: 2px solid var(--belat-primary);
+}
+
+.alt-nav-tabs .nav-tabs .nav-item.show .nav-link,
+.alt-nav-tabs .nav-tabs .nav-link.active {
+  @extend %alt_nav_link_active;
+}
+
+%alt_nav_link_active_hover {
+  background-color: inherit;
+  color: var(--belat-primary);
+}
+
+.alt-nav-tabs .nav-tabs .nav-item.show .nav-link,
+.alt-nav-tabs .nav-tabs .nav-link.active:hover {
+  @extend %alt_nav_link_active_hover;
+}
+/*table*/
+
+/* inputs / form */
+
+%input_height {
+  //equivalente a 60px se ajusta con font size
+  height: calc(2em + 16px);
+}
+
+.home-grid .input-group-sm > .custom-select,
+.home-grid .input-group-sm > .form-control:not(textarea) {
+  @extend %input_height;
+}
+
+.input-group-sm > .custom-select,
+.input-group-sm > .form-control:not(textarea) {
+  @extend %input_height;
+  height: calc(2em + 6px);
+}
+
+%input_global {
+  padding: 0.25rem 0.8em;
+  //al ajustar el font size se adapta el radius, el padding block y el height relativo
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.input-group-sm > .custom-select,
+.input-group-sm > .form-control,
+.input-group-sm > .input-group-append > .btn,
+.input-group-sm > .input-group-append > .input-group-text,
+.input-group-sm > .input-group-prepend > .btn,
+.input-group-sm > .input-group-prepend > .input-group-text {
+  @extend %input_global;
+  --input-border-radius: 1.65em;
+}
+
+%label_global {
+  font-size: 1.1rem;
+}
+
+.home-grid .col-form-label {
+  @extend %label_global;
+  font-size: 1.125rem;
+}
+
+%checkbox_label {
+  font-size: 1rem;
+}
+
+.custom-checkbox.b-custom-control-sm,
+.input-group-sm .custom-checkbox {
+  @extend %checkbox_label;
+}
+
+.col-form-label {
+  @extend %label_global;
+}
+
+.home-grid .input-groupsm > .custom-select,
+.home-grid .input-group-sm > .form-control,
+.home-grid .input-group-sm > .input-group-append > .btn,
+.home-grid .input-group-sm > .input-group-append > .input-group-text,
+.home-grid .input-group-sm > .input-group-prepend > .btn,
+.home-grid .input-group-sm > .input-group-prepend > .input-group-text {
+  border-color: var(--belat-primary);
+  --input-border-radius: 1.65em;
+}
+
+.input-groupsm > .custom-select,
+.input-group-sm > .form-control,
+.input-group-sm > .input-group-append > .btn,
+.input-group-sm > .input-group-append > .input-group-text,
+.input-group-sm > .input-group-prepend > .btn,
+.input-group-sm > .input-group-prepend > .input-group-text {
+  border-color: var(--belat-primary);
+  --input-border-radius: 1.65em;
+}
+
+.input-group .b-form-btn-label-control.form-control {
+  border-top-right-radius: var(--input-border-radius);
+  border-bottom-right-radius: var(--input-border-radius);
+  border-top-left-radius: var(--input-border-radius);
+  border-bottom-left-radius: var(--input-border-radius);
+}
+
+%password_strong_label {
+  max-width: 90%;
+}
+
+.password,
+.Password {
+  @extend %password_strong_label;
+}
+
+// %overlay_wrap {
+//   top: 20vmin;
+//   max-width: 80vw;
+// }
+
+// .b-overlay-wrap > div:first-child {
+//   @extend %overlay_wrap;
+// }
+
+// %alert {
+//   padding: 0.75rem 2rem;
+//   border-radius: 1.5rem;
+//   border-top-left-radius: 0;
+//   border-bottom-left-radius: 0;
+// }
+
+// .alert {
+//   @extend %alert;
+// }
+
+// %alert_hr {
+//   display: none;
+// }
+
+// .alert hr {
+//   @extend %alert_hr;
+// }
+
+// %alert_danger {
+//   color: #ffffff;
+//   background-color: #df6e8b;
+//   border-color: #df6e8b;
+// }
+
+// .alert-danger {
+//   @extend %alert_danger;
+// }
+
+// %alert_close {
+//   font-size: 3.5rem;
+//   font-weight: 100;
+//   opacity: 1;
+// }
+
+// .alert .close {
+//   @extend %alert_close;
+// }
+
+%nav_link_user_home {
+  display: flex;
+}
+
+.progress-steps.progress {
+  background: #e1e5eb;
+}
+
+.progress-steps .progress-bar {
+  background: #a7bdd1;
+}
+
+.belat-steps-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.form-tabs-item .btn-primary {
+  display: block;
+  width: 100%;
+  border-radius: 50em !important;
+}
+
+%custom_select {
+  border-color: var(--belat-form-is-valid-border);
+}
+
+.custom-select {
+  @extend %custom_select;
+}
+
+%custom_checkbox {
+  color: var(--belat-theme-color);
+  border-color: var(--belat-secondary);
+  background-color: var(--belat-secondary);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  @extend %custom_checkbox;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.navbar-nav .btn {
+  font-size: 0.75rem;
+}
+
+.navbar-nav .nav-item.nav-home,
+.navbar-nav .nav-item.nav-user-data {
+  padding-inline: 0.5rem;
+}
+
+.belat-nav {
+  position: absolute;
+  width: 100%;
+}
+
+.belat-nav.navbar {
+  padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 5vw, 2rem) 0;
+}
+
+.belat-logo {
+  height: clamp(2rem, 4vw, 4rem);
+  position: fixed;
+  top: 2%;
+  bottom: 0;
+  left: 2%;
+}
+
+.itd-nav-logo {
+  width: 60% !important;
+  width: unquote("clamp(10rem, -10rem + 25vw, 20rem)") !important;
+}
+
+%row_vdivide {
+  background: transparent !important;
+}
+
+//todos los alt-nav-tabs son del login asi que esto solo aplica para esa vista
+.alt-nav-tabs form .col::after {
+  @extend %row_vdivide;
+}
+
+.navbar .flags .fis {
+  width: var(--belat-flags-size);
+  line-height: var(--belat-flags-size);
+  border-radius: var(--belat-flags-radius);
+}
+
+.navbar .flags .dropdown-menu {
+  min-width: var(--belat-flags-size);
+  padding: 0;
+  border: none;
+  background: #f5f6f8;
+}
+
+.navbar .flags .dropdown-menu .dropdown-item {
+  padding: 0.75rem 1.125rem;
+  border-radius: 0.25rem;
+}
+.navbar .flags .dropdown-menu li:first-child {
+  padding-top: 0;
+}
+.navbar .flags .dropdown-menu li:last-child {
+  padding-bottom: 0;
+}
+
+/** Media Queries */
+
+@media (max-width: 768px) {
+  .btn {
+    font-size: 1rem;
+  }
+
+  %btn-global-responsive {
+    font-size: 1.125rem;
+  }
+
+  .form-tabs-item {
+    align-items: flex-start;
+  }
+
+  .btn-secondary,
+  .btn-primary {
+    @extend %btn-global-responsive;
+  }
+
+  .home-grid {
+    grid-template-areas:
+      "form-tabs"
+      "side-content";
+    grid-template-columns: 1fr;
+  }
+
+  .form-tabs-item {
+    min-height: 60vmax;
+  }
+  .side-content-item {
+    display: none;
+  }
+
+  .home-grid .tab-content {
+    padding-inline: 16px;
+  }
+
+  .navbar-nav {
+    align-items: flex-start;
+  }
+
+  .navbar-nav .nav-link {
+    padding-block: 0.5rem;
+  }
+
+  .navbar-nav .nav-item.nav-home,
+  .navbar-nav .nav-item.nav-user-data {
+    padding-inline: 0;
+    padding-block: 0.5rem;
+  }
+
+  .navbar-nav .btn-secondary {
+    padding: unquote("calc(0.75rem + 0.5px)") 1.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .nav-item.nav-home > a,
+  .nav-item.nav-user-data > a {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.75rem;
+  }
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 330px;
+  left: 0%;
+  background-color: #f1f3f5;
+}
+
+.content {
+  margin-left: 60px; /* Ajusta el margen para evitar solapamiento con la barra de navegación */
+  padding: 20px; /* Añade un espacio de relleno para el contenido principal */
+}
+
+.boton-continuar {
+  position: absolute;
+  right: 20%;
+}
+.select_belat {
+  font-family: Raleway;
+}
+
+.input_belat {
+  font-family: Raleway;
+}
+
+.text_belat {
+  font-family: Raleway;
+}

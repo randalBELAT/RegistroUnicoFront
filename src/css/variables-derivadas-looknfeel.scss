@@ -1,0 +1,21 @@
+* {
+    --belat-text-accent-color: #e60064;
+    --belat-font-family-body: var(--font-family-sans-serif);
+    --belat-font-family-display: var(--font-family-sans-serif);
+    --belat-font-family-table: var(--font-family-sans-serif);
+    --belat-progress-bar-bg: #9ea8bf;
+    // equivalente a 33px se ajusta con font size
+    --input-border-radius: 0.1em;
+    --belat-form-is-valid-color: var(--belat-primary);
+    --belat-form-is-valid-shadow: 0 0 0 0.2rem var(--belat-primary-25);
+    --belat-form-invalid-color: var(--belat-primary);
+    --belat-scroll-size: 5px;
+    /* animation shadow etc de projectBox5 card */
+    --belat-pcard-shadow-color: rgba(11, 43, 90, var(--belat-pcard-box-shadow-alpha));
+    --belat-project-card-transform: perspective(var(--belat-pcard-perspective))
+      translate3d(0px, var(--belat-pcard-translate-y), var(--belat-pcard-translate-z));
+    --belat-project-card-box-shadow: 0px 5px 12px var(--belat-pcard-box-shadow-blur)
+      var(--belat-pcard-shadow-color);
+    --belat-project-card-transition: all 0.3s ease-in-out;
+  }
+  

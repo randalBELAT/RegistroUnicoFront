@@ -1,0 +1,36 @@
+* {
+  /* base colors and theming vars */
+  --belat-text-accent-color: var(--belat-secondary);
+  --belat-font-family-body: var(--font-family-sans-serif);
+  --belar-font-family-display: "cocogoose_prolight",
+    var(--belat-font-family-body);
+  /* layout and components vars */
+  --belat-nav-link-color: var(--belat-primary);
+  --belat-page-link-color: var(--belat-primary);
+  --belat-nav-link-active-color: var(--belat-secondary);
+  --belat-scroll-bg: var(--belat-third-color);
+  --belat-scroll-size: var(--belat-border);
+  --belat-scroll-radius: var(--belat-border);
+  /* elements vars */
+  --belat-btn-primary-bg: var(--belat-primary);
+  --belat-btn-primary-color: var(--belat-theme-color);
+  --belat-btn-primary-hover: var(--belat-secondary);
+  --belat-btn-secondary-bg: var(--belat-secondary);
+  --belat-btn-secondary-color: var(--belat-theme-color);
+  --belat-btn-secondary-hover: var(--belat-primary);
+  --belat-select-color: var(--belat-theme-color);
+  --belat-progress-bar-bg: var(--belat-primary-50);
+  --belat-progress-bar-color: var(--belat-primary);
+  --belat-badge-secondary-bg: var(--belat-primary-75);
+  --belat-badge-secondary-color: var(--belat-theme-color);
+  --belat-badge-secondary-border: var(--belat-primary);
+  --belat-badge-primary-bg: var(--belat-primary);
+  --belat-badge-primary-color: var(--belat-theme-color);
+  --belat-table-color: var(--belat-text-color);
+  --belat-table-th-color: var(--belat-theme-color);
+  --belat-table-selected-color: var(--belat-theme-color);
+  --belat-form-is-valid-color: var(--belat-primary);
+  --belat-form-is-valid-shadow: 0 0 0 0.2rem var(--belat-primary-25);
+  --belat-form-invalid-color: var(--belat-secondary);
+  scrollbar-color: var(--belat-primary) var(--belat-secondary);
+}

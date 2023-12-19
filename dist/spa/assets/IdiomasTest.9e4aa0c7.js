@@ -1,0 +1,1 @@
+import{_ as t,l,m as o,n,j as e,S as a}from"./index.6fc550ed.js";import{Q as r}from"./QPage.3088307f.js";const c={name:"pageInicio",mounted(){}};function d(s,i,p,f,m,u){return l(),o(r,{padding:""},{default:n(()=>[e(a),e(a,{label:s.$t("failed")},null,8,["label"]),e(a,{label:s.$t("success")},null,8,["label"])]),_:1})}var b=t(c,[["render",d]]);export{b as default};

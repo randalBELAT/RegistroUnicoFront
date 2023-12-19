@@ -1,0 +1,1 @@
+import{au as o,r as t,l as r,ai as s,u as a,av as c}from"./index.6fc550ed.js";const u=o("user",()=>{const n=t("tokenGlobal"),e=t("");return{token:n,expiresIn:e}}),_={__name:"LoginPage",setup(n){const{token:e}=u();return(l,i)=>(r(),s("h3",null,"Login "+a(c(e)),1))}};export{_ as default};

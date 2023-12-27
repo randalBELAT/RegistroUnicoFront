@@ -46,9 +46,9 @@ Now we can use commands such as 'npx quasar dev' to start our project and view i
 4. Install [Axios](https://axios-http.com/docs/intro) to facilitate interactions with the project's API, an efficient and easy-to-use tool that simplifies HTTP requests and data management between the software and the server.
 
 ```bash
-npm install i18next --save
+npm install axios
 # or
-yarn add i18next
+yarn add axios
 ```
 
 5. The install [vue-i18n](https://vue-i18n.intlify.dev/) is required, to guarantee a multilingual experience adapted to different regions, an essential library that allows the internationalization and localization of the software.

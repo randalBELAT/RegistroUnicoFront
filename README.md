@@ -45,7 +45,7 @@ Now we can use commands such as 'npx quasar dev' to start our project and view i
 
 4. Install [Axios](https://axios-http.com/docs/intro) to facilitate interactions with the project's API, an efficient and easy-to-use tool that simplifies HTTP requests and data management between the software and the server.
 
-````bash
+```bash
 npm install i18next --save
 # or
 yarn add i18next
@@ -57,7 +57,7 @@ yarn add i18next
 npm install i18next --save
 # or
 yarn add axios
-````
+```
 
 6. Install [Pinea](https://pinia.vuejs.org/) is essential to ensure an efficient and fluid state management system within the software.
 

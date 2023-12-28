@@ -54,17 +54,17 @@ yarn add axios
 5. The install [vue-i18n](https://vue-i18n.intlify.dev/) is required, to guarantee a multilingual experience adapted to different regions, an essential library that allows the internationalization and localization of the software.
 
 ```bash
-npm install i18next --save
+npm install vue-i18n@9
 # or
-yarn add axios
+yarn add vue-i18n@9
 ```
 
 6. Install [Pinea](https://pinia.vuejs.org/) is essential to ensure an efficient and fluid state management system within the software.
 
 ```bash
-yarn add pinia
-# or with npm
 npm install pinia
+# or
+yarn add pinia
 ```
 
 ## Initializing Development Environment

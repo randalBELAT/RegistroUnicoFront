@@ -9,6 +9,8 @@
     >
       {{ $t("welcomeBasicInfo") }}
     </p>
+
+    <!-- Stepper -->
     <div
       :class="{
         '': $q.platform.is.mobile,
@@ -177,6 +179,7 @@
             </q-form>
           </div>
         </q-step>
+
         <q-step
           :name="2"
           :title="$t('personalData')"
@@ -905,6 +908,8 @@
         </q-step>
       </q-stepper>
     </div>
+
+    <!-- Investor profile -->
     <div v-show="mostrarInvestorProfileDiv">
       <!--INICIO - Sección que se disponibilizará solo al principio-->
       <div class="wrap">
@@ -955,28 +960,8 @@
       <!--FIN - Sección que se disponibilizará solo al principio-->
     </div>
 
-    <div class="fixed-bottom-right q-pb-md q-pr-lg">
-      <q-fab
-        color="primary"
-        icon="keyboard_arrow_up"
-        label="Contactanos"
-        label-position="left"
-        direction="up"
-      >
-        <q-fab-action
-          color="secondary"
-          @click="onClick"
-          label="Mail"
-          icon="mail"
-        />
-        <q-fab-action
-          color="secondary"
-          @click="onClick"
-          label="Whatsapp"
-          icon="chat"
-        />
-      </q-fab>
-    </div>
+    <!-- Contact button -->
+    <ContactBtn />
   </q-page>
 </template>
 
@@ -985,7 +970,13 @@ import { api } from "src/boot/axios";
 //import { apiInvestmentPlatform } from "src/boot/axios";
 import { ref } from "vue";
 
+//Imported components
+import ContactBtn from "./ContactBtn.vue";
+
 export default {
+  components: {
+    ContactBtn,
+  },
   setup() {
     return {
       dense: ref(false),

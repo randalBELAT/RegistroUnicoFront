@@ -25,171 +25,32 @@
         animated
         style="font-family: Raleway"
       >
+        <!-- STEP 1 -->
         <q-step
           :name="1"
           :title="$t('contactData')"
           icon="settings"
-          :done="step > 1"
+          :done="piniaStore.step > 1"
         >
-          <div class="container">
-            <q-form @submit="savePersonBasicInfo">
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-select
-                    outlined
-                    v-model="person.modelCountries"
-                    :options="countries"
-                    :label="$t('chooseCountry')"
-                    class="select_belat"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Por favor selecciona un pais',
-                    ]"
-                    emit-value
-                    map-options
-                  />
-                </div>
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    outlined
-                    :dense="dense"
-                    v-model="person.name"
-                    :label="$t('namePersonSelect')"
-                    class="input_belat"
-                    lazy-rules
-                    :rules="[
-                      (val) => (val && val.length > 0) || 'Escribe tu nombre',
-                    ]"
-                  />
-                </div>
-              </div>
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    outlined
-                    :dense="dense"
-                    v-model="person.lastname"
-                    :label="$t('lastnamePersonSelect')"
-                    class="input_belat"
-                    lazy-rules
-                    :rules="[
-                      (val) => (val && val.length > 0) || 'Escribe tu apellido',
-                    ]"
-                  />
-                </div>
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    outlined
-                    :dense="dense"
-                    v-model="person.email"
-                    :label="$t('emailSelect')"
-                    type="email"
-                    class="input_belat"
-                    lazy-rules
-                    :rules="[
-                      (val) => (val && val.length > 0) || 'Escribe tu email',
-                    ]"
-                  />
-                </div>
-              </div>
-
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    outlined
-                    :dense="dense"
-                    v-model="person.phone"
-                    :label="$t('phoneSelect')"
-                    class="input_belat"
-                    mask="### ########"
-                    fill-mask
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Escribe tu número de telefono',
-                    ]"
-                  />
-                </div>
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-select
-                    outlined
-                    v-model="person.modelCommunicationChannel"
-                    :options="communicationChannel"
-                    :label="$t('contactChannelSelect')"
-                    class="select_belat"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Selecciona el medio de contacto',
-                    ]"
-                  />
-                </div>
-              </div>
-
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-checkbox
-                    v-model="person.termsCondition"
-                    color="secondary"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) ||
-                        'Acepta los terminos y condiciones',
-                    ]"
-                  />
-                  <span style="font-family: Raleway">
-                    {{ $t("termsConditionAgree1") }}
-                    <a href="../src/assets/politica.pdf" target="_blank">{{
-                      $t("termsConditionAgree2")
-                    }}</a></span
-                  >
-                </div>
-              </div>
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-checkbox v-model="person.legalPerson" color="secondary" />
-                  <span style="font-family: Raleway">
-                    ¿Vienes en representación de una empresa?</span
-                  >
-                </div>
-              </div>
-
-              <div class="row q-gutter-sm">
-                <div
-                  class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm"
-                ></div>
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-stepper-navigation class="text-right">
-                    <q-btn
-                      color="secondary"
-                      :label="$t('continue')"
-                      push
-                      icon-right="ti-angle-right"
-                      class="btn-xs"
-                      type="submit"
-                    />
-                  </q-stepper-navigation>
-                </div>
-              </div>
-            </q-form>
-          </div>
+          <!-- Person Basic Infomation + Prop -->
+          <PersonaBasicInfo :handleChangeStep="handleChangeStep" />
         </q-step>
 
+        <!-- DESCOMPONER STEP 2 -->
         <q-step
           :name="2"
           :title="$t('personalData')"
           icon="person"
-          :done="step > 2"
+          :done="piniaStore.step > 2"
         >
+          <!-- <PersonalData :handleChangeStep="handleChangeStep" /> -->
+
           <div
             class="container"
             v-if="
-              person.legalPerson === false || person.legalPerson === undefined
+              person.legalPerson === false ||
+              person.legalPerson === undefined ||
+              !person
             "
           >
             <q-form @submit="savePersonPersonalData">
@@ -435,6 +296,7 @@
               </q-stepper-navigation>
             </q-form>
           </div>
+
           <div class="container" v-if="person.legalPerson === true">
             <q-form @submit="savePersonPersonalDataCompany">
               <div class="row q-gutter-sm">
@@ -535,7 +397,6 @@
                   />
                 </div>
               </div>
-
               <q-stepper-navigation>
                 <div class="row q-gutter-sm">
                   <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
@@ -566,345 +427,26 @@
             </q-form>
           </div>
         </q-step>
+
+        <!-- STEP 3 -->
         <q-step
           :name="3"
           :title="$t('declarations')"
           icon="person"
-          :done="step > 3"
+          :done="piniaStore.step > 3"
         >
-          <div class="wrap" v-show="mostrarQuestions">
-            <div class="row q-gutter-sm">
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <p>
-                  {{ $t("pep")
-                  }}<q-icon name="info" v-on:click="showModalPep = true" />
-                </p>
-                <q-option-group
-                  :options="[
-                    { label: $t('optionYes'), value: 'true' },
-                    { label: $t('optionNo'), value: 'false' },
-                  ]"
-                  type="radio"
-                  v-model="person.policy"
-                />
-              </div>
-              <q-dialog v-model="showModalPep">
-                <q-card>
-                  <q-card-section class="q-mb-md">
-                    <!-- Contenido del pop-up -->
-                    <p>{{ $t("pepText") }}</p>
-                  </q-card-section>
-                  <q-card-actions align="right">
-                    <q-btn color="primary" label="Cerrar" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <p>
-                  {{ $t("countryResidence")
-                  }}<q-icon name="info" v-on:click="showModalCrs = true" />
-                </p>
-                <q-option-group
-                  :options="[
-                    { label: $t('optionYes'), value: 'true' },
-                    { label: $t('optionNo'), value: 'false' },
-                  ]"
-                  type="radio"
-                  v-model="person.taxResidence"
-                />
-              </div>
-              <q-dialog v-model="showModalCrs">
-                <q-card>
-                  <q-card-section class="q-mb-md">
-                    <!-- Contenido del pop-up -->
-                    <p>{{ $t("crsText") }}</p>
-                  </q-card-section>
-                  <q-card-actions align="right">
-                    <q-btn color="primary" label="Cerrar" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-            </div>
-            <div class="row q-gutter-sm">
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <p>
-                  {{ $t("usaResidence")
-                  }}<q-icon name="info" v-on:click="showModalFatca = true" />
-                </p>
-                <q-option-group
-                  :options="[
-                    { label: $t('optionYes'), value: 'true' },
-                    { label: $t('optionNo'), value: 'false' },
-                  ]"
-                  type="radio"
-                  v-model="person.usaResidence"
-                />
-              </div>
-              <q-dialog v-model="showModalFatca">
-                <q-card>
-                  <q-card-section class="q-mb-md">
-                    <!-- Contenido del pop-up -->
-                    <p>{{ $t("fatcaText") }}</p>
-                  </q-card-section>
-                  <q-card-actions align="right">
-                    <q-btn color="primary" label="Cerrar" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <p>
-                  {{ $t("qualifiedInvestor")
-                  }}<q-icon
-                    name="info"
-                    v-on:click="showModalQualifiedInvestor = true"
-                  />
-                </p>
-                <q-option-group
-                  :options="[
-                    { label: $t('optionYes'), value: 'true' },
-                    { label: $t('optionNo'), value: 'false' },
-                  ]"
-                  type="radio"
-                  v-model="person.qualifiedInvestor"
-                />
-              </div>
-              <q-dialog v-model="showModalQualifiedInvestor">
-                <q-card>
-                  <q-card-section class="q-mb-md">
-                    <!-- Contenido del pop-up -->
-                    <p>{{ $t("qualifiedInvestorText") }}</p>
-                  </q-card-section>
-                  <q-card-actions align="right">
-                    <q-btn color="primary" label="Cerrar" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-            </div>
-            <div class="row q-gutter-sm q-pt-xl">
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <q-btn
-                  outline
-                  round
-                  @click="step = 2"
-                  color="secondary"
-                  :label="$t('back')"
-                  class="btn-xs q-ml-sm"
-                  icon="ti-angle-left"
-                />
-              </div>
-              <div
-                class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm text-right"
-              >
-                <q-btn
-                  @click="savePersonDeclarations"
-                  color="secondary"
-                  :label="$t('continue')"
-                  push
-                  icon-right="ti-angle-right"
-                  class="btn-xs"
-                ></q-btn>
-              </div>
-            </div>
-          </div>
-          <!--Otro div dentro del mismo stepper-->
-          <div class="wrap" v-show="mostrarAml">
-            <div class="row q-gutter-sm">
-              <div class="col-8 col-xs-12 col-sm-12 col-md-8 q-gutter-sm">
-                <p>
-                  {{ $t("amlDeclaration") }}
-                </p>
-              </div>
-            </div>
-            <div class="row q-gutter-sm">
-              <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                <q-checkbox
-                  v-model="person.amlAcceptation"
-                  color="secondary"
-                  true-value="yes"
-                  false-value="no"
-                />
-                <span style="font-family: Raleway">{{ $t("amlCheck") }}</span>
-              </div>
-            </div>
-
-            <q-stepper-navigation>
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-btn
-                    outline
-                    round
-                    @click="ocultarDivAml"
-                    color="secondary"
-                    :label="$t('back')"
-                    class="btn-xs q-ml-sm"
-                    icon="ti-angle-left"
-                  ></q-btn>
-                </div>
-                <div
-                  class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm text-right"
-                >
-                  <q-btn
-                    @click="savePersonAmlCheck"
-                    color="secondary"
-                    :label="$t('continue')"
-                    push
-                    icon-right="ti-angle-right"
-                    class="btn-xs"
-                  />
-                </div>
-              </div>
-            </q-stepper-navigation>
-          </div>
+          <!-- Declaration data component + Prop -->
+          <DeclarationData :handleChangeStep="handleChangeStep" />
         </q-step>
+
+        <!-- STEP 4 -->
         <q-step
           :name="4"
           :title="$t('userCreation')"
           icon="person"
-          :done="step > 4"
+          :done="piniaStore.step > 4"
         >
-          <div class="wrap">
-            <q-form @submit="savePersonUserCreate">
-              <div class="row justify-left">
-                <h2
-                  class="home-sub-title text-center"
-                  style="font-family: Raleway"
-                >
-                  {{ $t("readyAccount") }}
-                </h2>
-              </div>
-              <div class="row justify-left q-gutter-sm">
-                <p
-                  class="home-subtitle col-8 q-gutter-sm"
-                  style="font-family: Raleway"
-                >
-                  {{ $t("codeVerificationText") }} {{ this.email }}
-                </p>
-              </div>
-              <div class="row justify-left q-gutter-sm">
-                <div class="col-1 q-gutter-sm">
-                  <q-input
-                    outlined
-                    v-model="person.number1"
-                    label=""
-                    class="input_belat"
-                    type="tel"
-                    :rules="[(val) => val.length <= 1 || '']"
-                  />
-                </div>
-                <div class="col-1 q-gutter-sm">
-                  <q-input
-                    outlined
-                    v-model="person.number2"
-                    label=""
-                    class="input_belat"
-                    type="tel"
-                    :rules="[(val) => val.length <= 1 || '']"
-                  />
-                </div>
-                <div class="col-1 q-gutter-sm">
-                  <q-input
-                    outlined
-                    v-model="person.number3"
-                    label=""
-                    class="input_belat"
-                    type="tel"
-                    size="xs"
-                    :rules="[(val) => val.length <= 1 || '']"
-                  />
-                </div>
-                <div class="col-1 q-gutter-sm">
-                  <q-input
-                    outlined
-                    v-model="person.number4"
-                    label=""
-                    class="input_belat"
-                    type="tel"
-                    size="xs"
-                    :rules="[(val) => val.length <= 1 || '']"
-                  />
-                </div>
-              </div>
-              <div class="row q-gutter-sm">
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    outlined
-                    v-model="person.password"
-                    :label="$t('password')"
-                    class="input_belat"
-                    stack-label
-                    :type="isPwd ? 'password' : 'text'"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Escribe tu contraseña',
-                    ]"
-                  >
-                    <template v-slot:append>
-                      <q-icon
-                        :name="isPwd ? 'visibility_off' : 'visibility'"
-                        class="cursor-pointer"
-                        @click="isPwd = !isPwd"
-                      />
-                    </template>
-                  </q-input>
-                </div>
-                <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                  <q-input
-                    v-model="person.rePassword"
-                    outlined
-                    :type="isPwd ? 'password' : 'text'"
-                    stack-label
-                    :label="$t('rePassword')"
-                    lazy-rules
-                    :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Repite tu contraseña',
-                    ]"
-                  >
-                    <template v-slot:append>
-                      <q-icon
-                        :name="isRePwd ? 'visibility_off' : 'visibility'"
-                        class="cursor-pointer"
-                        @click="isPwd = !isPwd"
-                      />
-                    </template>
-                  </q-input>
-                  <p v-if="errorPass" style="color: red">{{ errorPass }}</p>
-                  <p v-else-if="messagePass" style="color: red">
-                    {{ messagePass }}
-                  </p>
-                </div>
-              </div>
-
-              <q-stepper-navigation>
-                <div class="row q-gutter-sm">
-                  <div class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm">
-                    <q-btn
-                      outline
-                      round
-                      @click="step = 3"
-                      color="secondary"
-                      :label="$t('back')"
-                      class="btn-xs q-ml-sm"
-                      icon="ti-angle-left"
-                    />
-                  </div>
-                  <div
-                    class="col-5 col-xs-12 col-sm-12 col-md-5 q-gutter-sm text-right"
-                  >
-                    <q-btn
-                      color="secondary"
-                      :label="$t('continue')"
-                      push
-                      icon-right="ti-angle-right"
-                      class="btn-xs"
-                      type="submit"
-                    />
-                  </div>
-                </div>
-              </q-stepper-navigation>
-            </q-form>
-          </div>
+          <UserCreation :handleChangeStep="handleChangeStep" />
         </q-step>
       </q-stepper>
     </div>
@@ -969,27 +511,33 @@
 import { api } from "src/boot/axios";
 //import { apiInvestmentPlatform } from "src/boot/axios";
 import { ref } from "vue";
+import { usePiniaStore } from "../stores/PiniaStore";
 
 //Imported components
 import ContactBtn from "./ContactBtn.vue";
+import PersonaBasicInfo from "./PersonaBasicInfo.vue";
+// import PersonalData from "./PersonalData.vue";
+import DeclarationData from "./DeclarationsData.vue";
+import UserCreation from "./UserCreation.vue";
 
 export default {
   components: {
     ContactBtn,
+    PersonaBasicInfo,
+    // PersonalData,
+    DeclarationData,
+    UserCreation,
   },
   setup() {
+    const piniaStore = usePiniaStore();
+
     return {
-      dense: ref(false),
+      piniaStore,
       step: ref(1),
-      name: ref(null),
-      email: ref(null),
-      phone: ref(null),
-      lastname: ref(null),
       modelPersonType: ref(null),
       dniFrontImage: null,
       dniBackImage: null,
       dni: ref(null),
-      modelCommunicationChannel: ref(null),
       city: ref(null),
       address: ref(null),
       ageRange: ref(null),
@@ -1015,6 +563,19 @@ export default {
       number3: ref(""),
       number4: ref(""),
       Correo: ref("correo@correo.com"),
+
+      personType: ["NATURAL", "JURIDICA"],
+      cities: ["SANTIAGO", "VALPARAISO", "VIÑA DEL MAR", "RANCAGUA"],
+      ageRanges: ["18-25", "26-35", "36-45", "46-60", "+60"],
+
+      optionsYesOrNo: [
+        { label: "Si", value: "true" },
+        { label: "no", value: "false" },
+      ],
+      file: null,
+      // error: "",
+      birthdayDate: ref(null),
+
       educationLevels: [
         "EDUCACIÓN ESCOLAR INCOMPLETA",
         "EDUCACIÓN ESCOLAR COMPLETA",
@@ -1022,15 +583,6 @@ export default {
         "EDUCACIÓN SUPERIOR COMPLETA",
         "POSTGRADO",
       ],
-      personType: ["NATURAL", "JURIDICA"],
-      communicationChannel: [
-        "EMAIL",
-        "TELEFONO",
-        "WHATSAPP",
-        "SIN PREFERENCIA",
-      ],
-      cities: ["SANTIAGO", "VALPARAISO", "VIÑA DEL MAR", "RANCAGUA"],
-      ageRanges: ["18-25", "26-35", "36-45", "46-60", "+60"],
       laboralActivities: [
         "TRABAJADOR DEPENDIENTE",
         "TRABAJADOR INDEPENDIENTE",
@@ -1055,13 +607,6 @@ export default {
         "> $10.000.001",
         "N.A.",
       ],
-      optionsYesOrNo: [
-        { label: "Si", value: "true" },
-        { label: "no", value: "false" },
-      ],
-      file: null,
-      error: "",
-      birthdayDate: ref(null),
     };
   },
   data() {
@@ -1070,8 +615,6 @@ export default {
       mostrarQuestions: true,
       mostrarBasicInfoDiv: true,
       mostrarInvestorProfileDiv: false,
-      countries: [],
-      modelCountries: null,
       legalPerson: false,
       termsCondition: false,
       errorPass: "",
@@ -1084,66 +627,15 @@ export default {
     };
   },
   mounted() {
-    this.getCountriesSelect();
     this.codeVerification();
   },
   methods: {
-    //Metodos que realizan llamados al Backend
-    getCountriesSelect() {
-      api
-        .get("/getCountries", {
-          headers: {
-            "Access-Control-Allow-Origin": "*", // Establece el encabezado para permitir cualquier origen (puedes ajustarlo según tu configuración)
-            "X-Requested-With": "XMLHttpRequest",
-            "Content-Type": "application/json",
-            "User-Agent":
-              "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
-          },
-        })
-        .then((response) => {
-          this.countries = response.data
-            .map((country) => ({
-              label: country.name,
-              value: country.name,
-            }))
-            .sort((a, b) => {
-              // Ordenar alfabéticamente por la etiqueta (nombre del país)
-              if (a.label < b.label) return -1;
-              if (a.label > b.label) return 1;
-              return 0;
-            });
-        })
-        .catch((error) => {
-          console.error("Error al obtener países:", error);
-        });
+    // Metodo para cambiar el Step + Console Log
+    handleChangeStep(newStep) {
+      this.step = newStep;
+      console.log("Avanzamos al step: " + this.step);
     },
-    savePersonBasicInfo() {
-      console.log(this.person.termsCondition);
 
-      if (!this.person.termsCondition) {
-        this.$q.notify({
-          message: "Se deben aceptar los términos y condiciones",
-          type: "negative",
-        });
-      } else {
-        try {
-          const res = api.post("/registerPerson", {
-            idCountry: this.person.modelCountries,
-            name: this.person.name,
-            lastname: this.person.lastname,
-            email: this.person.email,
-            phone: this.person.phone,
-            idContactChannel: this.person.modelCommunicationChannel,
-            termsCondition: this.person.termsCondition,
-            legalPerson: this.person.legalPerson,
-          });
-        } catch (error) {
-          console.log(error);
-        }
-
-        this.step = 2;
-      }
-    },
     savePersonPersonalData() {
       try {
         const res = api.post("/registerPersonPersonalData", {
@@ -1180,34 +672,34 @@ export default {
 
       this.step = 4;
     },
-    savePersonDeclarations() {
-      try {
-        const res = api.post("/registerPersonDeclarations", {
-          email: this.person.email,
-          politicallyExposedPerson: this.person.policy,
-          taxResidence: this.person.taxResidence,
-          usaCitizen: this.person.usaResidence,
-          qualifiedInvestor: this.person.qualifiedInvestor,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    // savePersonDeclarations() {
+    //   try {
+    //     const res = api.post("/registerPersonDeclarations", {
+    //       email: this.person.email,
+    //       politicallyExposedPerson: this.person.policy,
+    //       taxResidence: this.person.taxResidence,
+    //       usaCitizen: this.person.usaResidence,
+    //       qualifiedInvestor: this.person.qualifiedInvestor,
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
 
-      this.mostrarAml = true;
-      this.mostrarQuestions = false;
-    },
-    savePersonAmlCheck() {
-      try {
-        const res = api.post("/registerPersonAmlCheck", {
-          email: this.person.email,
-          amlCheck: this.person.amlAcceptation,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    //   this.mostrarAml = true;
+    //   this.mostrarQuestions = false;
+    // },
+    // savePersonAmlCheck() {
+    //   try {
+    //     const res = api.post("/registerPersonAmlCheck", {
+    //       email: this.person.email,
+    //       amlCheck: this.person.amlAcceptation,
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
 
-      this.step = 4;
-    },
+    //   this.step = 4;
+    // },
     savePersonIdentityVerification() {
       try {
         const res = api.post("/registerPersonIdentityVerification", {
@@ -1375,10 +867,10 @@ export default {
       this.mostrarAml = true;
       this.mostrarQuestions = false;
     },
-    ocultarDivAml() {
-      this.mostrarQuestions = true;
-      this.mostrarAml = false;
-    },
+    // ocultarDivAml() {
+    //   this.mostrarQuestions = true;
+    //   this.mostrarAml = false;
+    // },
     handleFileUpload(event) {
       this.file = event.target.files[0];
     },

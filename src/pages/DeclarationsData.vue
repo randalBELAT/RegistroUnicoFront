@@ -111,7 +111,7 @@
         <q-btn
           outline
           round
-          @click="handleChangeStep(2)"
+          @click="this.piniaStore.handleChangeStep(2)"
           color="secondary"
           :label="$t('back')"
           class="btn-xs q-ml-sm"
@@ -207,12 +207,6 @@ export default {
       showModalQualifiedInvestor: false,
     };
   },
-  props: {
-    handleChangeStep: {
-      type: Function,
-      required: true,
-    },
-  },
   methods: {
     savePersonDeclarations() {
       try {
@@ -246,9 +240,8 @@ export default {
         console.log(error);
       }
 
-      // this.step = 4;
       // Llamada del metodo padre para cambiar el step
-      this.handleChangeStep(4);
+      this.piniaStore.handleChangeStep(4);
     },
   },
 };

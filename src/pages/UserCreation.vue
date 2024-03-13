@@ -111,7 +111,7 @@
             <q-btn
               outline
               round
-              @click="handleChangeStep(3)"
+              @click="this.piniaStore.handleChangeStep(3)"
               color="secondary"
               :label="$t('back')"
               class="btn-xs q-ml-sm"

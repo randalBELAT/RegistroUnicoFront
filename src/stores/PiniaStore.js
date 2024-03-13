@@ -15,15 +15,16 @@ import { ref } from "vue";
 export const usePiniaStore = defineStore("PiniaStore", {
   //STATES
   state: () => ({
-    step: ref(1),
+    step: 1,
     modelCountries: null,
     person: {},
   }),
 
   //ACTIONS
   actions: {
-    incrementStep() {
-      this.step++;
+    handleChangeStep(newStep) {
+      this.step = newStep;
+      console.log("Next step: " + this.step);
     },
   },
 });

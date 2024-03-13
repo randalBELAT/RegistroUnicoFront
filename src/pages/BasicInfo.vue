@@ -19,7 +19,7 @@
       v-show="mostrarBasicInfoDiv"
     >
       <q-stepper
-        v-model="step"
+        v-model="piniaStore.step"
         vertical
         flat
         animated
@@ -32,8 +32,7 @@
           icon="settings"
           :done="piniaStore.step > 1"
         >
-          <!-- Person Basic Infomation + Prop -->
-          <PersonaBasicInfo :handleChangeStep="handleChangeStep" />
+          <PersonaBasicInfo />
         </q-step>
 
         <!-- DESCOMPONER STEP 2 -->
@@ -43,7 +42,7 @@
           icon="person"
           :done="piniaStore.step > 2"
         >
-          <!-- <PersonalData :handleChangeStep="handleChangeStep" /> -->
+          <!-- <PersonalData /> -->
 
           <div
             class="container"
@@ -273,7 +272,7 @@
                     <q-btn
                       round
                       outline
-                      @click="step = 1"
+                      @click="piniaStore.step = 1"
                       :label="$t('back')"
                       class="btn-xs q-ml-sm"
                       color="secondary"
@@ -403,7 +402,7 @@
                     <q-btn
                       outline
                       round
-                      @click="step = 1"
+                      @click="this.piniaStore.handleChangeStep(1)"
                       color="secondary"
                       :label="$t('back')"
                       class="btn-xs q-ml-sm"
@@ -435,8 +434,7 @@
           icon="person"
           :done="piniaStore.step > 3"
         >
-          <!-- Declaration data component + Prop -->
-          <DeclarationData :handleChangeStep="handleChangeStep" />
+          <DeclarationData />
         </q-step>
 
         <!-- STEP 4 -->
@@ -446,7 +444,7 @@
           icon="person"
           :done="piniaStore.step > 4"
         >
-          <UserCreation :handleChangeStep="handleChangeStep" />
+          <UserCreation />
         </q-step>
       </q-stepper>
     </div>
@@ -530,10 +528,13 @@ export default {
   },
   setup() {
     const piniaStore = usePiniaStore();
+    const person = piniaStore.person;
+    const step = piniaStore.step;
 
     return {
       piniaStore,
-      step: ref(1),
+      person,
+      step,
       modelPersonType: ref(null),
       dniFrontImage: null,
       dniBackImage: null,
@@ -619,7 +620,6 @@ export default {
       termsCondition: false,
       errorPass: "",
       messagePass: "",
-      person: {},
       showModalPep: false,
       showModalFatca: false,
       showModalCrs: false,
@@ -630,12 +630,6 @@ export default {
     this.codeVerification();
   },
   methods: {
-    // Metodo para cambiar el Step + Console Log
-    handleChangeStep(newStep) {
-      this.step = newStep;
-      console.log("Avanzamos al step: " + this.step);
-    },
-
     savePersonPersonalData() {
       try {
         const res = api.post("/registerPersonPersonalData", {
@@ -652,10 +646,12 @@ export default {
         console.log(error);
       }
 
-      this.step = 3;
+      // Llamada del metodo padre para cambiar el step
+      this.piniaStore.handleChangeStep(3);
     },
+
     savePersonPersonalDataCompany() {
-      /*  try {
+      try {
         const res = api.post("/registerPersonPersonalData", {
           email: this.email,
           idCity: this.city,
@@ -668,9 +664,9 @@ export default {
         });
       } catch (error) {
         console.log(error);
-      } */
+      }
 
-      this.step = 4;
+      this.piniaStore.handleChangeStep(4);
     },
     // savePersonDeclarations() {
     //   try {

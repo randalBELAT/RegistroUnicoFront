@@ -187,12 +187,7 @@ export default {
   mounted() {
     this.getCountriesSelect();
   },
-  props: {
-    handleChangeStep: {
-      type: Function,
-      required: true,
-    },
-  },
+
   methods: {
     getCountriesSelect() {
       api
@@ -246,7 +241,7 @@ export default {
         }
 
         // Llamada del metodo padre para cambiar el step
-        this.handleChangeStep(2);
+        this.piniaStore.handleChangeStep(2);
       }
     },
   },
